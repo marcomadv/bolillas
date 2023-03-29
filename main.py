@@ -1,5 +1,7 @@
 import pygame as pg
-from figura_class import Rectangulo, Bolillas
+from figura_class import Figura
+import random 
+
 
 #inicializar todos los modulos de pygame: pantallas, objetos, sonidos, teclados, etc.
 pg.init()
@@ -10,11 +12,10 @@ pg.display.set_caption( "Bolillas" ) #agregar un titulo a mi ventana
 
 game_over = False
 
-#rectangulo1 = Rectangulo(400, 300) #rect blanco
-#rectangulo2 = Rectangulo(300, 200, (192, 6, 211), 30, 30) #rect violeta
+listaBolillas = []
 
-circulo1 = Bolillas(400, 300)
-circulo2 = Bolillas(300, 200, (192, 6, 211), radio = 30)
+for i in range(1, 101):
+    listaBolillas.append(Figura(random.randint(0, 750), random.randint(0, 550), (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), radio = random.randint(10, 40)))
 
 while not game_over:
 
@@ -25,18 +26,17 @@ while not game_over:
     
     pantalla.fill((33, 14, 119))#asignar un color a la pantalla
 
-    #rectangulo1.mover(800, 600)
-    #rectangulo2.mover(800, 600)
-    circulo1.mover(800, 600)
-    circulo2.mover(800, 600)
-
-    #la pantalla o surface, color en tupla de rgb, posiciones(posicionAncho,posicionLargo,tamaño del rec. largo, tamaño del rec. ancho)
-    #pg.draw.rect(pantalla, rectangulo1.color, (rectangulo1.pos_x, rectangulo1.pos_y, rectangulo1.w, rectangulo1.h))#dibujar un rectangulo 
-    #pg.draw.rect(pantalla, rectangulo2.color, (rectangulo2.pos_x, rectangulo2.pos_y, rectangulo2.w, rectangulo2.h))#dibujar un rectangulo 
-    pg.draw.circle(pantalla,circulo1.color, (circulo1.pos_x, circulo1.pos_y), circulo1.radio)
-    pg.draw.circle(pantalla,circulo2.color, (circulo2.pos_x, circulo2.pos_y), circulo2.radio)
+    for bolillas in listaBolillas:
+        bolillas.moverCirculo(800, 600)
     
-    pg.display.flip()#funcion para cargar toda la configuracion que va dentro de la pantalla
+    #la pantalla o surface, color en tupla de rgb, posiciones(posicionAncho,posicionLargo,tamaño del rec. largo, tamaño del rec. ancho)
+   
+    #pg.draw.circle(pantalla,circulo1.color, (circulo1.pos_x, circulo1.pos_y), circulo1.radio)
+    #pg.draw.circle(pantalla,circulo2.color, (circulo2.pos_x, circulo2.pos_y), circulo2.radio)
+   
+        bolillas.dibujarCirculo(pantalla)
 
+    pg.display.flip()#funcion para cargar toda la configuracion que va dentro de la pantalla
+    
 pg.quit()
 
